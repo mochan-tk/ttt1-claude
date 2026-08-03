@@ -1,18 +1,20 @@
-# Agentic Development Scaffold (GitHub-native)
+# Agentic Development Scaffold (Claude-native, GitHub-mandatory)
 
-Repository wiring for running an AI-agent development lifecycle on GitHub —
-with GitHub Copilot cloud (coding) agent, the GitHub Copilot app's
-parent/child sessions, Copilot CLI, and IDE agents — such that **the plan,
-the work, the evidence, and the lessons all live on GitHub**, not in chat
-windows. Everything here is plain files: version it, review it, and let the
-improvement loops evolve it.
+Repository wiring for running an AI-agent development lifecycle with
+**Claude Code** — CLI, IDE extension, desktop app, web/cloud sessions, and
+spawned subagents — on top of a mandatory GitHub control plane, such that
+**the plan, the work, the evidence, and the lessons all live on GitHub**,
+not in chat windows. Everything here is plain files: version it, review it,
+and let the improvement loops evolve it.
 
-Two design premises. First, sessions are ephemeral and agents are stateless,
-so GitHub (issues, PRs, committed files) is the only shared memory. Second,
-**this scaffold is generic by design**: project truth is injected once,
-through the `project-onboarding` skill, and kept honest afterwards by
-`scripts/tuning-status.sh` — so the same template serves any project and can
-be sharply tuned the moment a target arrives.
+Three design premises (ADR-0001). First, sessions are ephemeral and agents
+are stateless, so GitHub (issues, PRs, committed files) is the only shared
+memory. Second, **this scaffold is generic by design**: project truth is
+injected once, through the `project-onboarding` skill, and kept honest
+afterwards by `scripts/tuning-status.sh`. Third, **where a rule can be
+checked mechanically, it is enforced, not advised**: Claude Code hooks and
+tool-fenced subagents apply the scaffold's own thesis — automated checks
+are the ceiling on agent autonomy — to the agent itself.
 
 ## This is a template — after copying
 
@@ -135,13 +137,37 @@ docs/agreements/                   Phase-2 reviewed truth (+ retro-log.md)
   A task's timeline reads start → plan → outcome; the issue body is the
   requester-owned work order and is never edited by the executing agent.
 
+## Claude-native enforcement
+
+The constitution is not only prose. Where a rule is mechanically checkable,
+`.claude/settings.json` enforces it at tool-use time (ADR-0001,
+hooks-as-enforcement):
+
+- **Ownership guard** (`scripts/hooks/ownership-guard.sh`): once
+  `/start-task` records the Task's File-ownership globs in
+  `.claude/session-scope`, any file edit outside them is blocked — the
+  single-writer rule (AGENTS.md §5) as a wall, not a request. Fail-open
+  when no scope is declared (exploration, planning), fail-closed once one
+  is.
+- **Session start**: every session begins with the tuning status and a
+  pointer to the start ritual (AGENTS.md §9), so an untuned copy or a
+  skipped ritual is visible immediately.
+- **Force-push deny** and a pre-approved allowlist for the standard
+  verification commands keep the common loop fast and the destructive path
+  closed.
+- **Tool-fenced roles**: the orchestrator, planner, and reviewer subagents
+  (`.claude/agents/`) carry no file editor — "never writes application
+  code" is a property of their toolset, not a promise.
+
 ## How context reaches an agent (tiering)
 
-Always-on files (`AGENTS.md`, `CLAUDE.md`) stay lean and
-universal; path-scoped `.claude/rules/` files load only for matching
-paths; skills load on demand by description; task-specific context travels
-in the Task issue itself. The `context-distillation` skill owns tier
-placement; the `retro` skill's Budget rule keeps always-on files from
+Always-on context is `CLAUDE.md` (repo practicalities), which imports
+`AGENTS.md` (the constitution) — both lean and universal, budget-checked
+monthly. Path-scoped `.claude/rules/` files load only when matching paths
+are touched; `.claude/skills/` load on demand by description;
+`.claude/commands/` run on explicit invocation; task-specific context
+travels in the Task issue itself. The `context-distillation` skill owns
+tier placement; the `retro` skill's Budget rule keeps always-on files from
 bloating. Resist the urge to put everything in always-on context — it
 degrades every request a little.
 
@@ -189,9 +215,10 @@ degrades every request a little.
    - File an Epic (form or
      `.claude/skills/plan-management/templates/epic-body.md`).
    - Run `/breakdown-epic` → approve → Task issues exist, wired and routed.
-   - Dispatch the frontier: `exec:cloud` → assign the issue to Copilot;
-     `exec:app` → open a parent session with the **orchestrator** agent and
-     let it spawn one child session per task (`/start-task` inside each);
+   - Dispatch the frontier: `exec:cloud` → hand the issue to a Claude
+     Code cloud session; `exec:app` → open an orchestrator session (the
+     **orchestrator** subagent) and let it drive one child session per
+     task (`/start-task` inside each); `exec:cli` → headless runs;
      `exec:ide` → a human pairs in the IDE (hardware work lands here).
    - PRs flow through the gates; on deviations run `/replan`; periodically
      run `/retro` so the system learns. The monthly `retro-hygiene`
@@ -224,8 +251,11 @@ companion literature; one line each:
 
 ## Origin note
 
-Consolidated from tt1 (scaffold v0.6.0) + 2026-08-02 design review; the
-version trail lives in `SCAFFOLD-CHANGELOG.md`. Conventions here encode one
+Consolidated from tt1 (scaffold v0.6.0) + the 2026-08-02 design review;
+made Claude-native in v2.0.0 as one line of a three-template comparison
+experiment (Codex / Claude / Copilot — common lifecycle, per-agent
+execution planes; ADR-0001), cross-pollinated with hardening proven in the
+Codex line (ADR-0002). The version trail lives in `SCAFFOLD-CHANGELOG.md`. Conventions here encode one
 team's answers to: "how do we stay oriented when many agents work in
 parallel?" (issue graph + frontier + record-before-report), "how do we
 switch tools without re-briefing?" (routing labels + shared

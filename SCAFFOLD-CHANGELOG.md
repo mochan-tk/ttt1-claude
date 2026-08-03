@@ -7,7 +7,7 @@ instance uses to move between them, and where these files came from. A
 project's own changelog, if any, lives elsewhere — this file is about the
 scaffolding only.
 
-**Scaffold version adopted by this instance:** v1.0.0
+**Scaffold version adopted by this instance:** v2.0.0
 *(in the template repository this line always names the latest version;
 in a copied instance, update it when upgrading — the onboarding PR should
 confirm it)*
@@ -37,6 +37,41 @@ owner's call (merge right = judgment right); the instance PR never waits
 for it. That is how future projects inherit what this one learned.
 
 ## Versions
+
+### v2.0.0 — in progress (release date set at tag time)
+
+Claude-first restructure (ADR-0001) + cross-template hardening (ADR-0002),
+built as Epic mochan-tk/ttt1-claude#14 with the agreement merge first.
+**Layout-breaking for v1.x instances** — upgrade note below.
+
+- Claude-native execution plane: skills moved to `.claude/skills/` (single
+  source); six native slash commands in `.claude/commands/`; the three
+  roles as tool-fenced subagents in `.claude/agents/` (no file editor);
+  path-scoped rules in `.claude/rules/` (`paths:` frontmatter);
+  `.claude/settings.json` with permissions + hooks (ownership-guard
+  enforcing the single-writer rule from `.claude/session-scope`;
+  session-start tuning reminder; force-push deny); `.mcp.json`.
+- `CLAUDE.md` rewritten as the repository-practicalities file importing
+  `AGENTS.md`; the Copilot surfaces removed with behavior translated (the
+  Copilot instructions file, prompts/agents/instructions directories, the
+  setup-steps workflow, the VS Code MCP config). Sync Triangle → **Sync
+  Pair** (`CLAUDE.md` ⇄ `ci.yml`); routing table retargeted to Claude Code
+  surfaces.
+- Hardening adopted from the ttt1-codex comparison line (ADR-0002):
+  frontier `type:task` filter (defect fix) + loud bounds; `new-task.sh`
+  exclusive `--dry-run`/`--apply` boundary with full preflight and
+  `--origin`/`--risk`; `setup-project.sh` field-type preflight;
+  `setup-labels.sh` `--dry-run`; required Origin + Risk-gate fields in the
+  task form; deferred-criteria block completion; mechanical same-failure
+  definition; exact-plan-URL risk approval; one-line `upstream:` PR
+  contract.
+- Retro (in-wave): stage before running the self-check suite
+  (mochan-tk/ttt1-claude#22, promoted at two occurrences);
+  `check-md-links` now covers `.claude/` paths.
+- **Upgrading a v1.x instance:** move any local skill edits from the old
+  skills tree into `.claude/skills/`, port instructions-file tunings into
+  `CLAUDE.md` and `.claude/rules/`, re-run `scripts/setup-labels.sh`, then
+  follow "Upgrading an instance" above (tag diff v1.0.0 → v2.0.0).
 
 ### v1.0.0 — 2026-08-03
 

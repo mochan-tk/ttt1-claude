@@ -134,8 +134,9 @@ artifacts (branches, PRs, checks) already hold the current position.
   prevents double-driving.
 - **Same failure twice across sessions → human.** If a successor dies the
   same way its predecessor did, escalate per AGENTS.md §6 instead of
-  burning a third session. (Distinct from the in-loop three-strikes rule,
-  which counts retries against the wall *within* one session.)
+  burning a third session. (Distinct from the in-loop three-strikes rule
+  (verification skill), which counts retries against the wall *within* one
+  session.)
 
 ## Escalation to humans
 

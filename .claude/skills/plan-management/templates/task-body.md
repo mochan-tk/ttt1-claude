@@ -19,6 +19,14 @@
 - Requirements: REQ-
 - Decisions:
 
+## Origin
+
+<!-- One line, required: which issue this task was derived from and why.
+     Keeps the tracking graph connected (plan-management skill). For a
+     first-wave task under a fresh Epic, cite the Epic. -->
+
+- <!-- "#N — discovered while working #N" (or pass --origin to new-task.sh) -->
+
 ## Acceptance criteria
 
 <!-- Write each criterion as an executable check (test or command) placed
@@ -52,6 +60,14 @@
 ```bash
 
 ```
+
+## Risk gate
+
+<!-- normal = lazy consensus. risk:high = stop after the plan comment until
+     a human approves that exact comment URL; also add the risk:high label
+     (session-orchestration skill). Gate only the exception. -->
+
+- normal <!-- or: risk:high — stops after the plan comment until a human approves that exact comment URL (or pass --risk high) -->
 
 ## Routing
 

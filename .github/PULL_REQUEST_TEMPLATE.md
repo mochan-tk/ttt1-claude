@@ -32,10 +32,21 @@ None.
 
 None.
 
+## Upstream
+
+<!-- Exactly one line, required (SCAFFOLD-CHANGELOG.md, Upstreaming):
+     `upstream: proposed <template-PR-URL>` when the change is
+     project-agnostic and was proposed on the template, or
+     `upstream: not-applicable — <reason>` otherwise. -->
+
+upstream: not-applicable — <reason>
+
 ## Checklist
 
 - [ ] Plan was posted as a Task-issue comment before implementation and is
-      linked above.
+      linked above (the plan comment predates the first commit).
+- [ ] No acceptance criterion is `deferred` without a linked follow-up
+      issue; none remains deferred on a "completed" claim.
 - [ ] Diff stays inside the issue's **File ownership** paths (single-writer rule).
 - [ ] Every command in the issue's **Verification** section was run; output captured above.
 - [ ] No test, lint rule, or CI check was deleted, skipped, or weakened.

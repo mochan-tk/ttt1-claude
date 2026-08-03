@@ -38,7 +38,10 @@ checks join the required checks so the wall — not the agent's reading of
 its own diff — judges completion. The wall judges; retries are budgeted:
 the three-stage escalation (self-fix → parent session → human, advancing
 on the same failure three times) is both the cap and the exit, so autonomy
-stays bounded trial, never unbounded looping. Slogan: **slice late
+stays bounded trial, never unbounded looping. "Same failure" is defined
+mechanically: the same command or check failing with the same root-cause
+signature; the counter resets only on a materially different intervention
+(ADR-0002 item 6). Slogan: **slice late
 (rolling wave), measure early (tests first)** — late slicing keeps a wrong
 decomposition's blast radius small, early measuring exposes a wrong
 criterion fast. No special machinery is required: pre-placed tests included
@@ -83,8 +86,11 @@ recurrence prevented.
 | HIL verified on device | n/a in this task -> follow-up #<n> (exec:ide) | deferred |
 ```
 
-`deferred` is legal only when a follow-up issue exists and is linked;
-"pass (untested)" is not a result.
+`deferred` is legal only when a follow-up issue exists and is linked —
+and **a deferred criterion blocks the completion merge's "completed"
+claim**: the Outcome comment must say so, and the PR cannot merge as
+complete while any criterion is deferred without its linked follow-up.
+"pass (untested)" is not a result (ADR-0002 item 5).
 
 ## Reference, don't paste
 

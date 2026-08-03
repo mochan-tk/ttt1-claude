@@ -146,6 +146,33 @@ cmd_init() {
     echo "Created project #$number ('$title') owned by $owner."
   fi
 
+  # Field-type preflight: a same-name field of the WRONG type must hard-fail,
+  # never be silently reused — dates written into a text field vanish from
+  # every Roadmap view without an error (adopted from the ttt1-codex line,
+  # ADR-0002 item 3).
+  local project_id fields_json
+  project_id="$(gh project view "$number" --owner "$owner" --format json --jq '.id')"
+  # shellcheck disable=SC2016  # $id is a GraphQL variable, not a shell one
+  fields_json="$(gh api graphql -f query='
+    query($id: ID!) {
+      node(id: $id) { ... on ProjectV2 {
+        fields(first: 100) {
+          nodes { ... on ProjectV2FieldCommon { name dataType } } } } }
+    }' -f id="$project_id" --jq '.data.node.fields.nodes')"
+  check_field_type() { # $1=field name  $2=expected dataType
+    local actual
+    actual="$(printf '%s' "$fields_json" \
+      | jq -r --arg n "$1" '[.[] | select(.name == $n) | .dataType] | first // empty')"
+    if [[ -n "$actual" && "$actual" != "$2" ]]; then
+      echo "error: field '$1' exists with dataType $actual (expected $2)." >&2
+      echo "Rename or delete the conflicting field in the project UI, then re-run." >&2
+      exit 1
+    fi
+  }
+  check_field_type "Start date" "DATE"
+  check_field_type "Target date" "DATE"
+  check_field_type "Kind" "SINGLE_SELECT"
+
   # Creating a field whose name is taken fails, so check before creating.
   local existing_fields field_name
   existing_fields="$(gh project field-list "$number" --owner "$owner" \

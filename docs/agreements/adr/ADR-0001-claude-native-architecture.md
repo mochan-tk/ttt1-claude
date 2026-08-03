@@ -87,8 +87,9 @@ GitHub capability contract:
 
 ## References
 
-- ttt1-codex `docs/agreements/adr/ADR-0001-codex-native-architecture.md`
-  (owner decision superseding layout identity; two-plane model)
+- ttt1-codex ADR-0001, "codex-native-architecture", under that
+  repository's agreements tree (owner decision superseding layout
+  identity; two-plane model): <https://github.com/mochan-tk/ttt1-codex>
 - Epic mochan-tk/ttt1-claude#14; prior epic mochan-tk/ttt1-claude#1
 - k-wk4-codex `docs/decisions/ADR-0006` (ADLC completion design)
 - code.claude.com/docs (Claude Code repository surfaces, checked 2026-08-03)

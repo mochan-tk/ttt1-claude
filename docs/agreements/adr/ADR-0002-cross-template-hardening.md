@@ -50,7 +50,9 @@ repository's deterministic wall stays).
 ## References
 
 - Epic mochan-tk/ttt1-claude#14; audit recorded in that epic's task PRs
-- ttt1-codex: `.agents/skills/plan-management/scripts/{frontier,new-task}.sh`,
-  `.github/ISSUE_TEMPLATE/task.yml`, `PULL_REQUEST_TEMPLATE.md`,
-  `docs/agreements/adr/ADR-0002-adlc-operating-model.md`, Issues #8/#10,
-  PR #12
+- ttt1-codex sources (external repository —
+  <https://github.com/mochan-tk/ttt1-codex>): the plan-management skill
+  scripts (`frontier.sh`, `new-task.sh` under `.agents/skills/`), the task
+  issue form, the PR template, ADR-0002 "adlc-operating-model", Issues
+  mochan-tk/ttt1-codex#8 / mochan-tk/ttt1-codex#10, PR
+  mochan-tk/ttt1-codex#12

@@ -64,8 +64,10 @@ recurrence prevented.
 
 ## Pre-PR checklist (implementer)
 
-1. Run every command in the Task issue's **Verification** section; capture
-   real output.
+1. Stage everything first (`git add`), then run every command in the Task
+   issue's **Verification** section and capture real output — the repo's
+   self-check scripts scan **git-tracked** files (`git ls-files`), so an
+   unstaged new file passes locally and fails in CI.
 2. `git status --short` clean; diff confined to the issue's File-ownership
    paths.
 3. New logic has tests at the appropriate level (firmware logic: `native`

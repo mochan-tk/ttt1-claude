@@ -29,6 +29,39 @@ Never compensate for a lower layer at a higher one ("reviewer will catch it")
 and never weaken a lower layer to pass ("delete the flaky test"). A failing
 gate is information; removing the gate destroys the information.
 
+## Test-first work orders
+
+Acceptance criteria land as executable tests before implementation. The
+work order carries its own finish line: "these checks turn green" is the
+task's definition of done, fixed at dispatch time, and the pre-placed
+checks join the required checks so the wall — not the agent's reading of
+its own diff — judges completion. The wall judges; retries are budgeted:
+the three-stage escalation (self-fix → parent session → human, advancing
+on the same failure three times) is both the cap and the exit, so autonomy
+stays bounded trial, never unbounded looping. Slogan: **slice late
+(rolling wave), measure early (tests first)** — late slicing keeps a wrong
+decomposition's blast radius small, early measuring exposes a wrong
+criterion fast. No special machinery is required: pre-placed tests included
+in required checks *are* the wall's implementation.
+
+## Four-way misalignment diagnosis
+
+When an outcome misses expectations, split the question four ways. Each
+question has a fixed address on the timeline, so the comparison is
+mechanical — link-walking, not memory — and can itself be delegated to an
+agent:
+
+| # | Question | Address | If it is the culprit |
+|---|---|---|---|
+| 1 | Was the work order wrong? | Task issue body | fix the issue template / planner quality bar |
+| 2 | Did the plan misread it? | plan comment on the issue | fix the agreement the plan leaned on |
+| 3 | Did the diff drift from the plan? | PR diff | thicken the wall — add the check that would have caught it |
+| 4 | Did verification let it through? | evidence table + checks | add or sharpen the tests |
+
+The four addresses always exist (work order → start → plan → PR → outcome).
+The diagnosis output feeds the retro skill: a misalignment diagnosed is a
+recurrence prevented.
+
 ## Pre-PR checklist (implementer)
 
 1. Run every command in the Task issue's **Verification** section; capture

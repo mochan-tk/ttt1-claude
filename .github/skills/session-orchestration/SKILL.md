@@ -112,6 +112,31 @@ is the point.
 6. Route `needs-replan` outcomes to the planner procedure
    (`plan-management` §Replanning) and post the rationale on the Epic.
 
+## Resume protocol (crash-only)
+
+There is no dedicated resume machinery — by design. Sessions are
+crash-only: any session may vanish at any point, and recovery is always
+the same procedure, because the ledger (issue timelines) plus the
+artifacts (branches, PRs, checks) already hold the current position.
+
+- **Resume = start ritual + derivation.** A successor re-runs the start
+  ritual (AGENTS.md §9), then derives where things stand from the Task
+  issue timeline (work order → start → plan → latest comment) and the
+  artifacts (`git log`, `gh pr view`, `gh pr checks`) — never from a
+  predecessor's memory or session messages.
+- **Orphan detection is the parent's duty.** An orphaned task's signature:
+  start comment present, no Outcome comment, session gone. Parents scan
+  their dispatched tasks for that signature; nobody else will.
+- **Ownership transfers by resume comment.** Before touching files, the
+  successor posts a resume comment on the Task issue ("Resuming from
+  <predecessor session>; position derived from <links>"). One task, one
+  live session — the resume comment is what makes the swap visible and
+  prevents double-driving.
+- **Same failure twice across sessions → human.** If a successor dies the
+  same way its predecessor did, escalate per AGENTS.md §6 instead of
+  burning a third session. (Distinct from the in-loop three-strikes rule,
+  which counts retries against the wall *within* one session.)
+
 ## Escalation to humans
 
 Escalate (label `needs:human`, stop the affected line of work) when: an

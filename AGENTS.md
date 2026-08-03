@@ -79,6 +79,16 @@ your role or task. Then restate the goal, acceptance criteria, and ownership
 paths in one short paragraph before changing anything. If you cannot restate
 them, escalate per §6.
 
+### §10 Ledger completeness
+Every change, however small, goes through an agent session — not because
+agents are faster, but because the agent path is the only one that records
+intent (order and plan), process, and result automatically. A silent human
+hand-edit is an unrecorded session: the result may reach git, but the
+intent and the trail never do, and diagnosis breaks exactly there.
+Hands off, voice on: humans dispatch, steer, approve, and merge; they do not
+quietly hand-edit. (Human-authored PRs are fine — they carry the same
+records.)
+
 ## Where things live
 
 | Concern | Location |

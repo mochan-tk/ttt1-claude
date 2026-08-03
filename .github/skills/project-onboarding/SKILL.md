@@ -97,6 +97,20 @@ description. Append a `docs/agreements/retro-log.md` row (failure class:
 `onboarding`). List any project-agnostic improvements you noticed as
 upstream candidates (see the retro skill, Upstreaming).
 
+## Existing codebase path (legacy)
+
+Legacy code is code without tests (Feathers' working definition), and
+automated checks are the ceiling on agent autonomy (verification skill) —
+so on an existing codebase the first work order is not a feature. It is a
+**characterization-tests Task**: fix the *current* behavior in executable
+form, as-is, bugs and all. Characterization tests are the test-first
+pattern's special case (the expected value is whatever the code does
+today), and they are ideally delegable — self-contained, verifiable,
+patient reading work. Every suite added raises the autonomy ceiling and
+widens what the license merge can safely delegate: onboard the scaffold,
+license the foundation, then grow delegation one characterization suite at
+a time instead of attempting a rewrite or a big-bang adoption.
+
 ## Re-tuning
 
 Re-run P1→P6 (scoped to the delta) when: a new manifest/lockfile type

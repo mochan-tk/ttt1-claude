@@ -16,7 +16,6 @@
 #
 # Subcommands:
 #   init   Create (or reuse) a Projects v2 board titled "<repo> roadmap" by
-#   init   Create (or reuse) a Projects v2 board titled "<repo> roadmap" by
 #          default, add DATE fields `Start date` and `Target date` and a
 #          SINGLE_SELECT field `Kind` (options Epic, Task) if missing, link
 #          the project to the repository, and print the project number and

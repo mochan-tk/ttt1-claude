@@ -38,9 +38,9 @@ Run steps in this order. Do not improvise alternative commands when these work.
 
 The Task issue body is your work order: you read it, you never edit it
 (AGENTS.md §5). It follows `.github/ISSUE_TEMPLATE/ai-task.yml` and
-contains: Objective, Context & references, Acceptance criteria, Out of
-scope, File ownership, Verification, and Routing. Read all of it before
-writing code.
+contains: Objective, Context & references, Origin, Acceptance criteria,
+Out of scope, File ownership, Verification, Risk gate, Routing, and
+Handoff notes. Read all of it before writing code.
 
 1. Comment on the issue that you are starting (one line is enough).
 2. Before changing any file, post your implementation plan as a comment on

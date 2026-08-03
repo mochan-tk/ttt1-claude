@@ -43,7 +43,7 @@ Adopt two cooperating planes:
    context; `.claude/skills/` as the single home of skills;
    `.claude/commands/` for the slash-command catalog; `.claude/agents/`
    for the three roles **with mechanically enforced tool restrictions**
-   (coordinator/planner/reviewer roles carry no edit tools);
+   (orchestrator/planner/reviewer roles carry no edit tools);
    `.claude/rules/` for path-scoped rules; `.claude/settings.json` for
    permissions and hooks; `.mcp.json` for project MCP servers.
 

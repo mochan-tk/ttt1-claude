@@ -17,7 +17,9 @@ Task issue number: $1
    understanding of "done".
 4. Write the issue's File-ownership globs to `.claude/session-scope`, one
    per line (gitignored) — the ownership-guard hook enforces them from now
-   on (`.claude/settings.json`).
+   on (`.claude/settings.json`). Dialect: `**` = whole tree, `dir/**` =
+   subtree under a literal prefix, other globs are shell-matched with `*`
+   crossing `/` — keep scopes as plain directory subtrees where possible.
 5. Create branch `task/$1-<short-slug>` (in a fresh worktree if other tasks
    run in parallel), write `plan.md` (session cache — do not commit), and
    comment on the issue that work is starting with the session/branch

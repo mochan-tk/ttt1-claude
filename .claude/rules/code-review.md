@@ -1,7 +1,3 @@
----
-applyTo: "**"
----
-
 # Code Review Standards
 
 These standards guide the reviewer subagent (`.claude/agents/reviewer.md`)

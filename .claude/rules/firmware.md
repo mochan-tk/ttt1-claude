@@ -1,8 +1,4 @@
 ---
-applyTo: "firmware/**"
----
-
----
 paths: ["firmware/**"]
 ---
 
@@ -11,9 +7,6 @@ paths: ["firmware/**"]
 <!-- CUSTOMIZE: Adjust the `paths` glob above and the board/env names below
      to match this repository. Delete this file if the project has no
      firmware. -->
-
-<!-- CUSTOMIZE: Adjust the `applyTo` glob above and the board/env names below
-     to match this repository. Delete this file if the project has no firmware. -->
 
 ## Environment reality
 

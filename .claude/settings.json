@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash scripts/tuning-status.sh --quiet || echo 'scaffold not onboarded — run /onboard-project (CLAUDE.md, Environment setup)'; echo 'Start ritual: AGENTS.md §9. Working a task: /start-task <n> records the ownership scope.'"
+            "command": "bash scripts/tuning-status.sh --quiet || echo 'scaffold not onboarded \u2014 run /onboard-project (CLAUDE.md, Environment setup)'; echo 'Start ritual: AGENTS.md \u00a79. Working a task: /start-task <n> records the ownership scope.'"
           }
         ]
       }
@@ -34,6 +34,15 @@
           {
             "type": "command",
             "command": "bash scripts/hooks/ownership-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/hooks/force-push-guard.sh"
           }
         ]
       }

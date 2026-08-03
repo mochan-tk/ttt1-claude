@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# setup-ruleset.sh — bootstrap the branch ruleset described in README step 5:
+# setup-ruleset.sh — bootstrap the branch ruleset described in the README's
+# Getting started step 5:
 # on the default branch, require a pull request (>= 1 approving review) and
 # required status checks, via `POST /repos/{owner}/{repo}/rulesets`.
 #

@@ -111,7 +111,7 @@ scripts/check-template-sync.sh     Issue forms <-> body templates in sync (scaff
 scripts/retro-hygiene.sh           Retro candidates + always-on budget report (--create-issue)
 scripts/setup-labels.sh            Bootstrap the canonical label set
 scripts/setup-project.sh           Bootstrap the optional Projects v2 roadmap board
-scripts/setup-ruleset.sh           Bootstrap the step-5 branch ruleset (created disabled)
+scripts/setup-ruleset.sh           Bootstrap the branch ruleset — Getting started step 5 (created disabled)
 scripts/tuning-status.sh           Tuned or not? (report / --ci / --quiet)
 ```
 
@@ -186,7 +186,8 @@ degrades every request a little.
 7. **First run:**
    - Collect sources into `docs/context/<topic>/` (`context-collection`).
    - Run `/distill-context` → agreements PR → human merges (= agreement).
-   - File an Epic (form or `templates/epic-body.md`).
+   - File an Epic (form or
+     `.github/skills/plan-management/templates/epic-body.md`).
    - Run `/breakdown-epic` → approve → Task issues exist, wired and routed.
    - Dispatch the frontier: `exec:cloud` → assign the issue to Copilot;
      `exec:app` → open a parent session with the **orchestrator** agent and
@@ -214,7 +215,7 @@ project truth and stay put.
 The scaffold's core concepts carry established Japanese names in the
 companion literature; one line each:
 
-| 日本語 | English (this repository) |
+| Japanese | English (this repository) |
 |---|---|
 | 三つのマージ | the Three Merges (agreement / license / completion) |
 | 先置きテスト | test-first work orders |

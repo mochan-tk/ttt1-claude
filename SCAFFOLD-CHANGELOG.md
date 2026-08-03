@@ -38,7 +38,7 @@ for it. That is how future projects inherit what this one learned.
 
 ## Versions
 
-### v1.0.0 — in progress (release date set at tag time)
+### v1.0.0 — 2026-08-03
 
 Consolidated template baseline: tt1 (scaffold v0.6.0) + the 2026-08-02
 ADLC design review (deltas D1–D10). Fresh history; tt1's version-by-version
@@ -75,6 +75,9 @@ trail is summarized under Lineage below.
     (project-onboarding).
   - D10 re-registered `retro:candidate` seed: auto-comment issue-body
     edit diffs (mochan-tk/ttt1-claude#10, not built).
+- README onboarding funnel ("This is a template — after copying") and the
+  JP↔EN terminology bridge — the scaffold's only sanctioned Japanese —
+  under the same Epic.
 
 ## Lineage (pre-v1.0.0, inherited from tt1)
 
@@ -88,13 +91,13 @@ because it is the traceable origin of the current rules:
   (mochan-tk/tt1#39).
 - **v0.5.0 — 2026-07-04** — self-tuning loop: `retro:candidate` ledger,
   deterministic monthly `retro-hygiene` report + issue, live retro demo on
-  a real deviation (mochan-tk/tt1#20–#22).
+  a real deviation (mochan-tk/tt1#20 – mochan-tk/tt1#22).
 - **v0.4.0 — 2026-07-04** — `scripts/setup-project.sh`: optional Projects
   v2 roadmap bootstrap with Start/Target date fields (mochan-tk/tt1#16).
 - **v0.3.0 — 2026-07-04** — `scaffold-self-check` CI (pinned shellcheck +
   actionlint, template-sync and md-link checks), hygiene files,
   `setup-ruleset.sh` (created disabled), atomic `new-task.sh` wiring,
-  bash-3.2 empty-array guards (mochan-tk/tt1#7–#11).
+  bash-3.2 empty-array guards (mochan-tk/tt1#7 – mochan-tk/tt1#11).
 - **v0.2.x — 2026-07-03** — `project-onboarding` skill + `/onboard-project`
   prompt + `tuning-status.sh` (tuning as a verified procedure); second
   improvement loop (upstreaming + lineage file); `CLAUDE.md` shim.

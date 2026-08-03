@@ -1,10 +1,11 @@
 # AGENTS.md — Operating Constitution for All AI Agents
 
 This is the constitution for every AI agent working in this repository, on
-every surface: GitHub Copilot cloud (coding) agent, GitHub Copilot app
-sessions, Copilot CLI, IDE chat agents, and third-party agents. It defines
+every surface: Claude Code in all its forms (CLI, IDE extension, desktop
+app, web/cloud sessions, and spawned subagents) and any other agent that
+reads `AGENTS.md`. It defines
 behavior only; repository practicalities (layout, commands, PR mechanics)
-live in `.github/copilot-instructions.md` and must not be duplicated or
+live in `CLAUDE.md` and must not be duplicated or
 contradicted here.
 
 If any instruction conflicts with this file, stop and escalate per §6.
@@ -26,13 +27,13 @@ send the session message to your parent session or the human. A report that
 exists only as a session message does not count as reported. The rule covers
 the start as well: the working plan is posted as a comment on the Task issue
 before implementation begins. The comment formats are defined in
-`.github/skills/session-orchestration/SKILL.md`.
+`.claude/skills/session-orchestration/SKILL.md`.
 
 ### §3 Verify-before-done
 Never claim a state you have not verified in this session against ground
 truth: `git status`, `gh issue view`, `gh pr view`, `gh pr checks`, project
 queries. Your memory of what you did is not evidence. Procedure and evidence
-format: `.github/skills/verification/SKILL.md`.
+format: `.claude/skills/verification/SKILL.md`.
 
 ### §4 Unit of work
 1 Task issue = 1 session = 1 worktree/branch = 1 pull request.
@@ -63,7 +64,7 @@ far more than a paused task.
 Epics stay coarse; Task issues are decomposed just-in-time when their phase
 starts, and revised whenever reality diverges. Every plan change carries a
 rationale comment on the Epic. Procedures:
-`.github/skills/plan-management/SKILL.md`.
+`.claude/skills/plan-management/SKILL.md`.
 
 ### §8 English-only rule
 All durable artifacts — issues, PRs, commit messages, code comments, and
@@ -73,7 +74,7 @@ human's language.
 
 ### §9 Start ritual
 At session start read, in order: (1) this file, (2)
-`.github/copilot-instructions.md`, (3) your Task issue in full, (4) every
+`CLAUDE.md`, (3) your Task issue in full, (4) every
 agreement it references under `docs/agreements/`, (5) the skills named by
 your role or task. Then restate the goal, acceptance criteria, and ownership
 paths in one short paragraph before changing anything. If you cannot restate
@@ -95,16 +96,16 @@ records.)
 |---|---|
 | Raw collected material (phase 1) | `docs/context/` |
 | Reviewed requirements, ADRs, glossary, non-goals (phase 2) | `docs/agreements/` |
-| Repository practicalities (layout, commands, PR mechanics) | `.github/copilot-instructions.md` |
-| Path-scoped rules | `.github/instructions/*.instructions.md` |
-| Procedures (planning, routing, orchestration, verification, retro, context) | `.github/skills/*/SKILL.md` |
-| Role definitions | `.github/agents/*.agent.md` |
-| Reusable slash-command prompts | `.github/prompts/*.prompt.md` |
+| Repository practicalities (layout, commands, PR mechanics) | `CLAUDE.md` |
+| Path-scoped rules | `.claude/rules/*.md` |
+| Procedures (planning, routing, orchestration, verification, retro, context) | `.claude/skills/*/SKILL.md` |
+| Role definitions | `.claude/agents/*.md` |
+| Reusable slash-command prompts | `.claude/commands/*.md` |
 | Work-order / Epic formats | `.github/ISSUE_TEMPLATE/` |
 
 ## Amendments
 
 This file is versioned like code and changes only via PR — normally a
-`retro:` PR produced by `.github/skills/retro/SKILL.md`, subject to its
+`retro:` PR produced by `.claude/skills/retro/SKILL.md`, subject to its
 Budget rule (always-on files stay lean; adding a line usually means removing
 one). Anything procedural belongs in a skill, not here.

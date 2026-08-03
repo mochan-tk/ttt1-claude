@@ -1,5 +1,5 @@
 # Epic (outline item) form. Mirrors the canonical body template
-# .github/skills/plan-management/templates/epic-body.md — keep in sync.
+# .claude/skills/plan-management/templates/epic-body.md — keep in sync.
 name: Epic
 description: >-
   Coarse outline item holding an outcome and a rolling-wave phase outline.
@@ -12,7 +12,7 @@ body:
       value: |
         Keep Epics coarse. Only the phase about to start gets decomposed into
         Task sub-issues — via the `/breakdown-epic` prompt or
-        `.github/skills/plan-management/SKILL.md`. Rationale comments on this
+        `.claude/skills/plan-management/SKILL.md`. Rationale comments on this
         issue are the plan's change log.
   - type: input
     id: outcome

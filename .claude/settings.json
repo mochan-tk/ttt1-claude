@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh issue view:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(bash scripts/tuning-status.sh:*)",
+      "Bash(bash scripts/check-md-links.sh)",
+      "Bash(bash scripts/check-template-sync.sh)",
+      "Bash(bash scripts/retro-hygiene.sh)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/tuning-status.sh --quiet || echo 'scaffold not onboarded — run /onboard-project (CLAUDE.md, Environment setup)'; echo 'Start ritual: AGENTS.md §9. Working a task: /start-task <n> records the ownership scope.'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/hooks/ownership-guard.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

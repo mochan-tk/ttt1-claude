@@ -1,7 +1,7 @@
 # CODEOWNERS — review gate for paths agents must not change unilaterally.
 #
 # Template adopters: replace @mochan-tk with your own user or team during
-# onboarding (.github/skills/project-onboarding/SKILL.md). Pair this file
+# onboarding (.claude/skills/project-onboarding/SKILL.md). Pair this file
 # with a branch ruleset (scripts/setup-ruleset.sh) so the assignments are
 # actually enforced on pull requests.
 #

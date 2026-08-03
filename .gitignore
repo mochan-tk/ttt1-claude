@@ -1,7 +1,12 @@
 # Repository hygiene — keep session artifacts and OS/editor cruft out of git.
 
-# plan.md is a per-session cache, never committed (.github/skills/session-orchestration/SKILL.md).
+# plan.md is a per-session cache, never committed (.claude/skills/session-orchestration/SKILL.md).
 plan.md
+
+# Claude Code per-user/per-session state (never repository truth).
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/session-scope
 
 # OS cruft
 .DS_Store

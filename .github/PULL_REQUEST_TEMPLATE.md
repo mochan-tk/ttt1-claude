@@ -11,7 +11,7 @@ session-orchestration skill; plan text auto-written here is a copy) -->
 
 <!-- One row per acceptance criterion of the Task issue. "pass (untested)" is
      not a result; "deferred" requires a linked follow-up issue
-     (.github/skills/verification/SKILL.md). -->
+     (.claude/skills/verification/SKILL.md). -->
 
 | Criterion | Evidence (command / link) | Result |
 |---|---|---|

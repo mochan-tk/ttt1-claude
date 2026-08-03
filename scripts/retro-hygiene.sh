@@ -8,7 +8,7 @@
 #      (1 filing + N occurrence comments), age in days; count >= 2 is
 #      flagged PROMOTION OVERDUE (retro skill, Candidate ledger).
 #   2. Always-on budget — line counts of AGENTS.md and
-#      .github/copilot-instructions.md against the ~150-line target
+#      CLAUDE.md against the ~150-line target
 #      (retro skill, Budget rule).
 #   3. Pointer to the retro skill Procedure for acting on the findings.
 #
@@ -138,7 +138,7 @@ ${total} open candidate(s), ${overdue} at or over the promotion threshold (>= 2 
   fi
 
   budget_rows="$(budget_row "AGENTS.md")
-$(budget_row ".github/copilot-instructions.md")"
+$(budget_row "CLAUDE.md")"
 
   cat <<EOF
 # ${ISSUE_TITLE}
@@ -160,7 +160,7 @@ ${budget_rows}
 
 ## Next steps
 
-Act via the Procedure in \`.github/skills/retro/SKILL.md\`: promote each
+Act via the Procedure in \`.claude/skills/retro/SKILL.md\`: promote each
 overdue candidate into a \`retro:\` PR (which closes the candidate), and trim
 or demote lines when an always-on file exceeds the Budget-rule target.
 EOF

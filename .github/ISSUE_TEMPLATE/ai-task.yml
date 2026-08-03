@@ -39,6 +39,18 @@ body:
         - Decisions:
     validations:
       required: true
+  - type: input
+    id: origin
+    attributes:
+      label: Origin
+      description: >-
+        One line: "#N — discovered while working #N". Every derived issue
+        cites its origin; this single edge keeps the tracking graph
+        connected (plan-management skill). For a first-wave task under a
+        fresh Epic, cite the Epic.
+      placeholder: "#N — discovered while working #N"
+    validations:
+      required: true
   - type: textarea
     id: acceptance
     attributes:
@@ -81,6 +93,21 @@ body:
         results), executable on the routed surface (exec:cloud tasks get no
         hardware).
       render: bash
+    validations:
+      required: true
+  - type: dropdown
+    id: risk-gate
+    attributes:
+      label: Risk gate
+      description: >-
+        normal = lazy consensus (plan is visible, ungated). risk:high = the
+        session stops after posting the plan comment until a human approves
+        that exact comment URL; also add the risk:high label. Default is
+        pass-through — gate only the exception.
+      options:
+        - "normal"
+        - "risk:high"
+      default: 0
     validations:
       required: true
   - type: dropdown

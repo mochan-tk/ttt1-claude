@@ -106,9 +106,14 @@ web UI).
 gh issue create --title "Epic: <outcome>" --label "type:epic" --body-file epic-body.md
 
 # Create a Task under Epic #12, blocked by #14 and #15 — one call wires
-# parent, labels, and dependencies atomically
-# (.claude/skills/plan-management/scripts/new-task.sh wraps this call; body:
-#  copy of templates/task-body.md, filled in)
+# parent, labels, and dependencies atomically. Prefer the wrapper: it
+# demands an explicit --dry-run/--apply choice (the live-GitHub boundary)
+# and preflights parent type, blocker/origin readability, and label
+# existence before anything is created.
+.claude/skills/plan-management/scripts/new-task.sh --dry-run \
+  -t "<task title>" -b task-body.md -p 12 -e cloud -d 14,15 \
+  --origin "#12 — first wave of this epic" --ready
+# (same call with --apply once the dry-run output is right; raw fallback:)
 gh issue create --title "<task title>" --label "type:task,exec:cloud,ai:ready" \
   --body-file task-body.md --parent 12 --blocked-by 14,15
 

@@ -3,17 +3,33 @@
 # relies on (plan-management, task-routing, session-orchestration skills).
 # Idempotent: uses `gh label create --force`.
 #
-# Usage: setup-labels.sh [-R owner/repo]
+# Usage: setup-labels.sh [-R owner/repo] [--dry-run]
+#   --dry-run  Print the labels that would be ensured; no GitHub call.
 
 set -euo pipefail
 
 REPO_ARGS=()
-[[ "${1:-}" == "-R" && -n "${2:-}" ]] && REPO_ARGS=(--repo "$2")
-command -v gh >/dev/null 2>&1 || { echo "error: gh CLI not found" >&2; exit 1; }
+DRY_RUN=false
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -R) [[ -n "${2:-}" ]] || { echo "error: -R requires owner/repo" >&2; exit 2; }
+        REPO_ARGS=(--repo "$2"); shift 2 ;;
+    --dry-run) DRY_RUN=true; shift ;;
+    -h|--help) grep '^#' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *) echo "Unknown argument: $1" >&2; exit 2 ;;
+  esac
+done
+$DRY_RUN || command -v gh >/dev/null 2>&1 || { echo "error: gh CLI not found" >&2; exit 1; }
 
 # ${arr[@]+"${arr[@]}"} guards the empty-array expansion, which is an unbound
 # variable under `set -u` on bash 3.2 (macOS /bin/bash); fixed in bash 4.4.
-create() { gh label create "$1" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --color "$2" --description "$3" --force; }
+create() {
+  if $DRY_RUN; then
+    printf 'dry-run: would ensure %-16s #%s  %s\n' "$1" "$2" "$3"
+  else
+    gh label create "$1" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --color "$2" --description "$3" --force
+  fi
+}
 
 create "type:epic"    "5319E7" "Outline item; parent of Task sub-issues (plan-management)"
 create "type:task"    "0E8A16" "Self-contained work order for one agent session"

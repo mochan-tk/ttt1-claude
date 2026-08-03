@@ -47,10 +47,13 @@ child so parallel sessions cannot write to the same checkout.
    diagnosable from one page.
 
 6. **Risk gate:** if the Task issue carries the `risk:high` label, stop
-   after posting the plan comment and wait for an approval comment from the
-   requester (or any human) before the first file change. The default for
-   unlabeled tasks is pass-through — the gate exists only for labeled
-   exceptions (plan-management skill, Intervening).
+   after posting the plan comment and wait for a human approval comment
+   that **quotes the exact URL of that plan comment** before the first file
+   change — approval of a different plan, or an agent-authored approval,
+   does not open the gate, and a revised plan needs fresh approval
+   (ADR-0002 item 7). The default for unlabeled tasks is pass-through —
+   the gate exists only for labeled exceptions (plan-management skill,
+   Intervening).
 
 Surfaces that write a plan into the PR description automatically (e.g. the
 cloud agent) produce a convenient copy: link the plan comment from the PR

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # frontier.sh — print the actionable frontier of the plan.
 #
-# Frontier = open issues labeled `ai:ready` whose "Blocked by" issues are all
-# CLOSED. These are the tasks an orchestrator may dispatch right now.
+# Frontier = open `type:task` issues labeled `ai:ready` whose "Blocked by"
+# issues are all CLOSED. These are the tasks an orchestrator may dispatch
+# right now. Epics and mislabeled issues never enter the frontier (the
+# type:task filter is part of the definition, not a display choice).
 #
 # Usage:
 #   frontier.sh [-R owner/repo] [--all]
@@ -54,6 +56,11 @@ blocker_closed() {
   else
     state=$(gh issue view "$ref" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --json state -q .state 2>/dev/null || echo "UNKNOWN")
   fi
+  # A lookup failure must be visible, never silently treated as closed:
+  # dispatching against an unknown blocker state is how ordering breaks.
+  if [[ "$state" == "UNKNOWN" ]]; then
+    echo "warning: could not resolve blocker state for ${ref}; treating as OPEN" >&2
+  fi
   [[ "$state" == "CLOSED" ]]
 }
 
@@ -63,13 +70,22 @@ blocker_closed() {
 # variable under `set -u` on bash 3.2 (macOS /bin/bash); fixed in bash 4.4.
 CANDIDATES=()
 while IFS= read -r cand; do CANDIDATES+=("$cand"); done < <(gh issue list \
-  ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --state open --label "ai:ready" --limit 200 \
+  ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --state open \
+  --label "ai:ready" --label "type:task" --limit 200 \
   --json number,title \
   --template '{{range .}}{{.number}}{{"\t"}}{{.title}}{{"\n"}}{{end}}')
 
 if [[ ${#CANDIDATES[@]} -eq 0 ]]; then
-  echo "No open issues labeled ai:ready."
+  echo "No open type:task issues labeled ai:ready."
   exit 0
+fi
+
+# Fail loud at the query bound instead of silently truncating: a partial
+# frontier report reads as "this is everything" when it is not.
+if [[ ${#CANDIDATES[@]} -ge 200 ]]; then
+  echo "error: 200+ ai:ready type:task issues — result would be truncated." >&2
+  echo "Narrow the query (close stale tasks or raise the bound consciously)." >&2
+  exit 1
 fi
 
 echo "== Actionable frontier (open, ai:ready, no open blockers) =="

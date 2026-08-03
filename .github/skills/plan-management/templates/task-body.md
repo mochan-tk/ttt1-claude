@@ -11,7 +11,9 @@
 
 <!-- Links the executing agent must read: REQ-### entries, ADRs, parent Epic,
      prior PRs/issues, relevant docs/context files. Assume the agent sees
-     NOTHING beyond this issue and these links. -->
+     NOTHING beyond this issue and these links. Derived issues
+     cite the origin as #N in one line ("found while working #N") — that
+     single line keeps the tracking graph connected (plan-management skill). -->
 
 - Epic: #
 - Requirements: REQ-
@@ -19,8 +21,11 @@
 
 ## Acceptance criteria
 
-<!-- Objectively checkable, each provable by a Verification command or an
-     observable artifact. Reference REQ-### where applicable. -->
+<!-- Write each criterion as an executable check (test or command) placed
+     before implementation — "these turn green" is this task's definition of
+     done; the checks join the wall (verification skill, Test-first work
+     orders). Reference REQ-### where applicable; an observable artifact is
+     acceptable only where no check can encode it. -->
 
 - [ ]
 - [ ]
@@ -40,8 +45,9 @@
 
 ## Verification
 
-<!-- Commands to run, with expected results, executable on the routed
-     surface (exec:cloud tasks get no hardware). -->
+<!-- How to run the pre-placed acceptance checks (commands with expected
+     results), executable on the routed surface (exec:cloud tasks get no
+     hardware). -->
 
 ```bash
 

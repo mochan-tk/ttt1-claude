@@ -25,5 +25,6 @@ create "exec:app"     "BFDADC" "Route: Copilot app session — steerable, worktr
 create "exec:cli"     "FEF2C0" "Route: Copilot CLI — scripted / batch / CI-triggered"
 create "exec:ide"     "F9D0C4" "Route: IDE with human in the loop — ambiguous or hardware work"
 create "retro:candidate" "EDEDED" "Observed scaffold friction; promote to a retro: PR at the 2nd occurrence"
+create "risk:high"    "CB2431" "Exception gate: plan comment needs an approval comment before execution (session-orchestration)"
 
-echo "Done. 10 labels ensured."
+echo "Done. 11 labels ensured."

@@ -52,6 +52,48 @@ all closed.** This is the set an orchestrator may dispatch right now.
 - Before dispatching two frontier tasks together, re-check ownership
   disjointness — the graph guarantees ordering, not file safety.
 
+## The tracking graph (four edges, one rule)
+
+The graph that plans the work also traces it afterwards. Four edge kinds,
+four questions answered:
+
+- **Vertical** — sub-issue parent/child: *part of what?*
+- **Horizontal** — `blocked-by`: *waiting on what?*
+- **Diagonal** — a plain `#N` reference in a body or comment: *born from
+  what?* (GitHub records the cross-reference on both timelines.)
+- **Needle** — `Closes #<n>` on the PR: *became which code?* (Merge closes
+  the issue and stitches code to work order.)
+
+The one rule that keeps the net connected: **derived issues cite the origin
+as #N in one line.** A fix issue born from an investigation, a follow-up
+born from a review comment — each carries "found while working #N" in its
+body, and the cross-reference does the rest. Diagnosis then enters from
+three directions: **down** from the Epic through sub-issues and
+dependencies, **up** from `git blame` (commit → PR → `Closes` issue → plan
+comment), or **sideways** via label and date search. No extra tracking
+fields: actual times stamp every event automatically, planned spans live in
+Projects Start/Target fields as a view.
+
+## Intervening on a running task (three forks)
+
+Plans are visible but ungated — lazy consensus: no objection means proceed.
+When intervention is warranted, land only the conclusion, at the address
+that caused it:
+
+- **(a) The approach is off** → post a revised-plan comment on the Task
+  issue (conclusion only; the discussion itself may happen anywhere and
+  does not need to land).
+- **(b) The work order is off** → edit the issue body **plus** the
+  immediate change comment (Replanning step 3 below).
+- **(c) An agreement is off** → file a fix issue citing the discovering
+  task as #N, then correct it via an agreements PR — never patch a task
+  around a wrong agreement.
+
+Exception gate: a task labeled `risk:high` stops after posting its plan
+comment and waits for an approval comment before touching files
+(session-orchestration skill, child protocol). The default is pass-through;
+gate only the exception — inverting that ordering kills parallelism.
+
 ## Command cookbook
 
 Body files start from the canonical templates bundled with this skill:

@@ -46,6 +46,12 @@ child so parallel sessions cannot write to the same checkout.
    (body) → start → plan → outcome, which is what makes deviations
    diagnosable from one page.
 
+6. **Risk gate:** if the Task issue carries the `risk:high` label, stop
+   after posting the plan comment and wait for an approval comment from the
+   requester (or any human) before the first file change. The default for
+   unlabeled tasks is pass-through — the gate exists only for labeled
+   exceptions (plan-management skill, Intervening).
+
 Surfaces that write a plan into the PR description automatically (e.g. the
 cloud agent) produce a convenient copy: link the plan comment from the PR
 description and treat the issue timeline as authoritative.

@@ -25,6 +25,30 @@ be sharply tuned the moment a target arrives.
 | 4. Route & execute | Each task carries one `exec:*` label + Routing block deciding surface, role, and model tier | `task-routing` skill, `.github/agents/` |
 | 5. Verify & learn | Layered gates (CI → security → AI review → human), evidence tables, and `retro:` PRs that improve the system itself — upstreaming what is project-agnostic | `verification` + `retro` skills, `ci.yml`, rulesets |
 
+## The Three Merges
+
+Progress is recorded by merges, not conversations. Three checkpoints mark
+the lifecycle, and each is the same mechanical act — a pull request merged —
+so agreement, trust, and completion all leave the same kind of durable,
+reviewable trail:
+
+1. **Agreement merge** — the agreements PR merges (REQ / ADR / glossary /
+   non-goals): *what to build* is now recorded truth, and the switch from
+   raw input to shared knowledge is complete (phase 2).
+2. **License merge** — the onboarding evidence PR merges, carrying
+   run-verified commands plus one shakedown delegation (a small task run
+   end-to-end from dispatch through draft PR to green CI): the foundation
+   is proven by driving it, not by declaring it. Unattended delegation
+   unlocks here, and is re-licensed differentially when the foundation
+   changes (phase 0β).
+3. **Completion merge** — a task's PR merges through the gates (required
+   checks plus a non-author approval) and `Closes #<n>` snaps the issue
+   shut: *done* is recorded with evidence (phase 5).
+
+Human judgment concentrates at dispatch (what to ask for, when, how much in
+parallel) plus these three points; everything between them is delegated to
+agents and to walls.
+
 ## Repository map
 
 ```

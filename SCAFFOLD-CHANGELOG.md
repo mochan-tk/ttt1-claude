@@ -26,10 +26,15 @@ confirm it)*
 
 ## Upstreaming (instance → template)
 
-When a retro fix is project-agnostic, open a matching PR on the template
-repository and mark the retro-log Fix cell `[upstreamed]` — see
-`.github/skills/retro/SKILL.md`, Upstreaming. That is how future projects
-inherit what this one learned.
+The mechanism is one question. When an instance PR touches agent-behavior
+files (instructions, `AGENTS.md`, prompts, agents, skills, workflows, MCP
+config), ask **once per PR**: "reflect this in the template too?" — and
+record the answer in the PR description in fixed form (`upstream:
+proposed` / `upstream: n/a`). If proposed, open the matching PR on the
+template repository and mark the retro-log Fix cell `[upstreamed]` — see
+`.github/skills/retro/SKILL.md`, Upstreaming. Acceptance is the template
+owner's call (merge right = judgment right); the instance PR never waits
+for it. That is how future projects inherit what this one learned.
 
 ## Versions
 
@@ -46,9 +51,30 @@ trail is summarized under Lineage below.
   `tuning-status.sh` mechanism, CLAUDE.md shim, docs tree, hygiene files
   (CODEOWNERS, dependabot, .gitignore).
 - MIT `LICENSE` added.
-- Design deltas D1–D10 from the 2026-08-02 review land in subsequent task
-  PRs under Epic mochan-tk/ttt1-claude#1 and are appended here as they
-  merge.
+- Design deltas D1–D10 (2026-08-02 review), merged under Epic
+  mochan-tk/ttt1-claude#1:
+  - D1 the Three Merges named in the README concept layer (agreement /
+    license / completion; human judgment = dispatch + three points).
+  - D2 test-first work orders: acceptance criteria land as pre-placed
+    executable checks (form, template, verification skill; "slice late,
+    measure early").
+  - D3 tracking graph: four edges, one rule — derived issues cite the
+    origin as #N in one line (plan-management, task form).
+  - D4 four-way misalignment diagnosis: work order / plan comment / diff /
+    evidence & checks (verification skill).
+  - D5 intervention forks (revised-plan comment | body edit + change
+    comment | issue-first) + `risk:high` exception gate (plan-management,
+    session-orchestration, setup-labels — 11 labels).
+  - D6 crash-only resume protocol: start ritual + derivation, orphan
+    detection by parent, resume-comment ownership transfer
+    (session-orchestration).
+  - D7 §10 ledger completeness in AGENTS.md ("hands off, voice on").
+  - D8 reference-don't-paste: PII/credentials never pasted into the ledger
+    (copilot-instructions rejection list, verification skill).
+  - D9 existing-codebase path: characterization tests first
+    (project-onboarding).
+  - D10 re-registered `retro:candidate` seed: auto-comment issue-body
+    edit diffs (mochan-tk/ttt1-claude#10, not built).
 
 ## Lineage (pre-v1.0.0, inherited from tt1)
 

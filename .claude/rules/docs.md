@@ -1,8 +1,4 @@
 ---
-applyTo: "docs/**"
----
-
----
 paths: ["docs/**"]
 ---
 

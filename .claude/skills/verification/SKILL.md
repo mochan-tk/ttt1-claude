@@ -74,7 +74,7 @@ recurrence prevented.
 2. `git status --short` clean; diff confined to the issue's File-ownership
    paths.
 3. New logic has tests at the appropriate level (firmware logic: `native`
-   env — see `firmware.instructions.md`).
+   env — see `.claude/rules/firmware.md`).
 4. Fill the PR template's evidence table — every acceptance criterion gets a
    row:
 

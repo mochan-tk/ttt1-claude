@@ -26,8 +26,9 @@ child so parallel sessions cannot write to the same checkout.
 ## Child session protocol
 
 **Start ritual** (do this before touching any file):
-1. `gh issue view <n>` — read the full brief: Objective, Context & references,
-   Acceptance criteria, Out of scope, File ownership, Verification, Routing.
+1. `gh issue view <n>` — read the full brief: Objective, Context &
+   references, Origin, Acceptance criteria, Out of scope, File ownership,
+   Verification, Risk gate, Routing, Handoff notes.
 2. Open every referenced agreement (`REQ-###`, ADR links). If a reference is
    missing or contradicts the issue, stop and apply the Ambiguity rule
    (`AGENTS.md` §6) — do not fill gaps with guesses.

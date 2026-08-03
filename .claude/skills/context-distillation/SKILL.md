@@ -32,7 +32,7 @@ better.
    options; a human picks. Record the pick as an ADR if it is architectural,
    or directly as the surviving `REQ` otherwise.
 4. **Write the diff, open a PR.** Agreements change only via PR with human
-   approval (`docs.instructions.md`). The PR description lists each new/changed
+   approval (`.claude/rules/docs.md`). The PR description lists each new/changed
    `REQ-###`/ADR with its source link. **Merge = agreement**; the review
    thread is the negotiation record.
 5. **Tier the knowledge** (see below) and, when a tier assignment adds or
@@ -44,7 +44,7 @@ better.
 | Tier | Test | Destination | Budget |
 |---|---|---|---|
 | Always-on | Needed on *most* tasks, stable, compressible to a few lines | `AGENTS.md`, `CLAUDE.md` | keep each file lean — target well under ~150 lines; adding usually means removing |
-| Scoped | Needed only when touching certain paths | `.claude/rules/<area>.instructions.md` with `applyTo` | one concern per file |
+| Scoped | Needed only when touching certain paths | `.claude/rules/<area>.md` with `paths` frontmatter | one concern per file |
 | On-demand | Large, procedural, or rarely needed | a skill under `.claude/skills/` or a doc under `docs/agreements/` referenced from issues | no practical size limit; discoverability via skill descriptions and issue links |
 
 Tie-breakers: if agents *repeatedly* miss it, promote one tier up; if an

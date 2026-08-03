@@ -13,8 +13,9 @@ Epic issue number: $1
    List any missing/contradictory agreements before planning.
 2. Decompose **only the phase that is about to start** into Task issues.
    Draft each brief per `.github/ISSUE_TEMPLATE/ai-task.yml`: Objective,
-   Context & references (REQ-### links), Acceptance criteria, Out of scope,
-   File ownership, Verification, Routing.
+   Context & references (REQ-### links), Origin ("#N — discovered while
+   working #N"), Acceptance criteria, Out of scope, File ownership,
+   Verification, Risk gate, Routing.
 3. Check the partition: parallel-intended tasks must have disjoint
    File-ownership paths; overlaps get `blocked-by` edges instead.
 4. Show me the proposed task list (title, exec label, dependencies, ownership)

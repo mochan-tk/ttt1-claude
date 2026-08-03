@@ -15,7 +15,7 @@ Two invariants govern everything below:
 - **The Sync Pair.** `CLAUDE.md` (validated commands) and
   `.github/workflows/ci.yml` (gates) must state the *same* toolchain and
   commands. Any edit to one is an edit to both.
-- **Evidence or it does not land.** A command enters the Triangle only after
+- **Evidence or it does not land.** A command enters the Sync Pair only after
   it has been executed in a clean environment during this onboarding, with
   its output (or failure + workaround) captured for the PR.
 
@@ -85,7 +85,11 @@ unrun command.
 ### P5 — Prove
 
 `scripts/tuning-status.sh` exits 0; the new CI gates run green once end to
-end (or documented-red with a linked issue). Definition of tuned = both.
+end (or documented-red with a linked issue); and one **shakedown
+delegation** completes — dispatch one small `ai:ready` task end-to-end
+(plan comment → implementation → draft PR → green checks) and link its PR
+in the evidence. Tuned = all three; the evidence PR merge plus that
+shakedown is the **license merge** (README, The Three Merges).
 
 ### P6 — Record
 
@@ -119,5 +123,5 @@ Drift between the Sync Pair files is itself a retro trigger.
 
 - Invent agreements, requirements, or ADRs.
 - Weaken or delete existing gates to make onboarding "pass".
-- Leave a command in the Triangle that was not executed in P3.
+- Leave a command in the Sync Pair that was not executed in P3.
 - Introduce non-English durable artifacts.

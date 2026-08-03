@@ -12,7 +12,11 @@
 # Fail-closed once a scope is declared: a blocked edit exits 2, which
 # Claude Code treats as "deny and surface the message".
 #
-# Input: PreToolUse hook JSON on stdin (tool_input.file_path).
+# Input: PreToolUse hook JSON on stdin (tool_input.file_path, or
+# tool_input.notebook_path for NotebookEdit).
+# Glob dialect (deliberately small): '**' = whole tree; 'dir/**' = the
+# subtree under a LITERAL dir prefix (wildcards in the prefix are not
+# expanded); any other glob is shell case-matching, where '*' crosses '/'.
 # Dependencies: bash 3.2+, jq (same dependency as scripts/setup-ruleset.sh).
 
 set -euo pipefail
@@ -23,7 +27,7 @@ SCOPE_FILE="$ROOT/.claude/session-scope"
 
 command -v jq >/dev/null 2>&1 || exit 0  # no jq: never hard-block on a missing tool
 
-FILE_PATH="$(jq -r '.tool_input.file_path // empty' 2>/dev/null || true)"
+FILE_PATH="$(jq -r '.tool_input.file_path // .tool_input.notebook_path // empty' 2>/dev/null || true)"
 [ -n "$FILE_PATH" ] || exit 0
 
 # Normalize to a repo-relative path for glob matching.
@@ -36,7 +40,7 @@ esac
 # plan.md is the sanctioned per-session cache (session-orchestration skill).
 [ "$REL" = "plan.md" ] && exit 0
 
-while IFS= read -r glob; do
+while IFS= read -r glob || [ -n "$glob" ]; do
   [ -z "$glob" ] && continue
   case "$glob" in \#*) continue ;; esac
   # `**` means the whole tree; `dir/**` means everything under dir.

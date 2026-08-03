@@ -30,7 +30,7 @@ The mechanism is one question. When an instance PR touches agent-behavior
 files (instructions, `AGENTS.md`, prompts, agents, skills, workflows, MCP
 config), ask **once per PR**: "reflect this in the template too?" — and
 record the answer in the PR description in fixed form (`upstream:
-proposed` / `upstream: n/a`). If proposed, open the matching PR on the
+proposed <URL>` / `upstream: not-applicable — <reason>`). If proposed, open the matching PR on the
 template repository and mark the retro-log Fix cell `[upstreamed]` — see
 `.claude/skills/retro/SKILL.md`, Upstreaming. Acceptance is the template
 owner's call (merge right = judgment right); the instance PR never waits
@@ -38,7 +38,7 @@ for it. That is how future projects inherit what this one learned.
 
 ## Versions
 
-### v2.0.0 — in progress (release date set at tag time)
+### v2.0.0 — 2026-08-03
 
 Claude-first restructure (ADR-0001) + cross-template hardening (ADR-0002),
 built as Epic mochan-tk/ttt1-claude#14 with the agreement merge first.
@@ -65,6 +65,8 @@ built as Epic mochan-tk/ttt1-claude#14 with the agreement merge first.
   task form; deferred-criteria block completion; mechanical same-failure
   definition; exact-plan-URL risk approval; one-line `upstream:` PR
   contract.
+- README and changelog restructured Claude-first (intro, enforcement
+  section, tiering, comparison provenance; mochan-tk/ttt1-claude#18).
 - Retro (in-wave): stage before running the self-check suite
   (mochan-tk/ttt1-claude#22, promoted at two occurrences);
   `check-md-links` now covers `.claude/` paths.

@@ -11,7 +11,7 @@ from the others' incidents without repeating them. Auditing ttt1-codex
 (2026-08-03) surfaced platform-neutral mechanics that are strictly safer
 than this repository's v1.0.0 equivalents — several of them born from a
 real incident there (mock-interception failure created live Issues
-ttt1-codex#8 and #10; the second occurrence was promoted, per the retro
+mochan-tk/ttt1-codex#8 and mochan-tk/ttt1-codex#10; the second occurrence was promoted, per the retro
 two-occurrence rule, into a fail-closed creation gate). The same audit
 found a real defect on this side: `frontier.sh` **omits the `type:task`
 filter**, so a mislabeled or epic-typed issue that is open + `ai:ready` +
@@ -25,10 +25,10 @@ style (bash-3.2 guards, comment conventions), not copying code:
 | # | Item | Provenance |
 |---|---|---|
 | 1 | `frontier.sh`: `type:task` filter (defect fix); >200-candidate loud-failure sentinel; visible dependency-lookup errors | ttt1-codex `frontier.sh`; defect found in this repo's copy |
-| 2 | `new-task.sh`: mandatory exclusive `--dry-run`/`--apply` (live-GitHub boundary); `--apply` preflight (gh capability, parent is `type:epic`, blockers/origin readable, labels exist); `--origin`/`--risk` flags | ttt1-codex incident #8/#10 → fail-closed gate |
+| 2 | `new-task.sh`: mandatory exclusive `--dry-run`/`--apply` (live-GitHub boundary); `--apply` preflight (gh capability, parent is `type:epic`, blockers/origin readable, labels exist); `--origin`/`--risk` flags | ttt1-codex incident (mochan-tk/ttt1-codex#8, mochan-tk/ttt1-codex#10) → fail-closed gate |
 | 3 | `setup-project.sh`: field-type preflight (same-name field of wrong type hard-fails, never silently reused); `setup-labels.sh`: `--dry-run`/`--help` | ttt1-codex setup scripts |
 | 4 | Task form + body template: required **Origin** input ("#N — discovered while ..."), required **Risk gate** selection | ttt1-codex `task.yml` |
-| 5 | Verification skill: a `deferred` acceptance criterion **blocks the completion merge** (a linked follow-up issue is required to defer, and the Outcome cannot claim completed with an unlinked deferral) | ttt1-codex PR #12 revised plan |
+| 5 | Verification skill: a `deferred` acceptance criterion **blocks the completion merge** (a linked follow-up issue is required to defer, and the Outcome cannot claim completed with an unlinked deferral) | ttt1-codex PR mochan-tk/ttt1-codex#12 revised plan |
 | 6 | Same-failure definition for escalation counting: same command/check **and** same root-cause signature; counters reset only on materially different intervention | ttt1-codex REQ-022 |
 | 7 | Risk-gate approval format: a human approval comment quoting the **exact plan-comment URL**; a revised plan requires fresh approval | ttt1-codex ADR-0002 §2 |
 | 8 | PR template: exactly one `upstream: proposed <URL> \| not-applicable — <reason>` line; checklist gains "plan comment predates implementation" | ttt1-codex PR template |

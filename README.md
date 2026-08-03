@@ -127,8 +127,8 @@ docs/agreements/                   Phase-2 reviewed truth (+ retro-log.md)
   `needs:replan`, and exactly one of `exec:cloud | exec:app | exec:cli |
   exec:ide` per task.
 - **Task issue sections (parsed — do not rename):** Objective, Context &
-  references, Acceptance criteria, Out of scope, File ownership,
-  Verification, Routing, Handoff notes.
+  references, Origin, Acceptance criteria, Out of scope, File ownership,
+  Verification, Risk gate, Routing, Handoff notes.
 - **Frontier** (what may run now): open `type:task` issues labeled
   `ai:ready` whose `blocked by` issues are all closed —
   `.claude/skills/plan-management/scripts/frontier.sh`.
@@ -152,9 +152,10 @@ hooks-as-enforcement):
 - **Session start**: every session begins with the tuning status and a
   pointer to the start ritual (AGENTS.md §9), so an untuned copy or a
   skipped ritual is visible immediately.
-- **Force-push deny** and a pre-approved allowlist for the standard
-  verification commands keep the common loop fast and the destructive path
-  closed.
+- **Force-push closed at two layers**: deny rules catch the common
+  prefixes, and a Bash PreToolUse guard catches reordered flags and
+  refspec-force spellings; a pre-approved allowlist keeps the standard
+  verification loop fast.
 - **Tool-fenced roles**: the orchestrator, planner, and reviewer subagents
   (`.claude/agents/`) carry no file editor — "never writes application
   code" is a property of their toolset, not a promise.

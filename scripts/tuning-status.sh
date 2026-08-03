@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # tuning-status.sh — is this scaffold instance tuned to its project yet?
 #
-# Scans only the *tunable targets* (the Sync Triangle + area instructions)
+# Scans only the *tunable targets* (the Sync Pair + path-scoped rules)
 # for CUSTOMIZE markers and known placeholder sentinels, and notes example
 # rows left in docs/agreements. Mentions of the word CUSTOMIZE elsewhere
-# (skills, prompts, README) are documentation, not findings.
+# (skills, commands, README) are documentation, not findings.
 #
 # Usage:
 #   tuning-status.sh            human report; exit 1 if markers remain
 #   tuning-status.sh --ci       emit ::warning:: lines; always exit 0
 #   tuning-status.sh --quiet    no output; exit code only (0 tuned / 1 not)
 #
-# Used by: .github/skills/project-onboarding/SKILL.md (P0/P5) and ci.yml.
+# Used by: .claude/skills/project-onboarding/SKILL.md (P0/P5) and ci.yml.
 
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -26,13 +26,12 @@ case "${1:-}" in
 esac
 
 TARGETS=(
-  ".github/copilot-instructions.md"
+  "CLAUDE.md"
   ".github/workflows/ci.yml"
-  ".github/workflows/copilot-setup-steps.yml"
 )
-if [[ -d .github/instructions ]]; then
+if [[ -d .claude/rules ]]; then
   while IFS= read -r f; do TARGETS+=("$f"); done \
-    < <(find .github/instructions -name '*.instructions.md' | sort)
+    < <(find .claude/rules -name '*.md' | sort)
 fi
 
 FINDINGS=()
@@ -46,9 +45,7 @@ for f in "${TARGETS[@]}"; do
   add_hits "CUSTOMIZE:" "$f"
 done
 # ci.yml carries no distinct placeholder step, so its CUSTOMIZE: marker (added
-# in the loop above) is its onboarding sentinel. copilot-setup-steps.yml keeps
-# a placeholder run step whose text survives CUSTOMIZE removal, so match it too.
-add_hits "Add project setup steps here" ".github/workflows/copilot-setup-steps.yml"
+# in the loop above) is its onboarding sentinel (the Sync Pair's second leg).
 
 NOTES=()
 while IFS= read -r hit; do NOTES+=("$hit"); done \
@@ -66,7 +63,7 @@ case "$MODE" in
     if [[ ${#FINDINGS[@]} -eq 0 ]]; then
       echo "TUNED: no CUSTOMIZE markers or placeholders in tunable targets."
     else
-      echo "NOT TUNED — run .github/skills/project-onboarding/SKILL.md:"
+      echo "NOT TUNED — run .claude/skills/project-onboarding/SKILL.md:"
       printf '  %s\n' "${FINDINGS[@]}"
     fi
     if [[ ${#NOTES[@]} -gt 0 ]]; then

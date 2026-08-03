@@ -18,7 +18,7 @@ confirm it)*
    (e.g., `git remote add scaffold <template-url> && git fetch scaffold --tags
    && git diff scaffold/v1.0.0..scaffold/v1.1.0 -- . ':!docs/context' ':!docs/agreements'`).
 2. Cherry-pick or apply the changes, **keeping project tunings** (the Sync
-   Triangle content, `applyTo` globs, layout map) — upgrades change
+   Pair content, `paths` globs, layout map) — upgrades change
    procedures and templates, not your project truth.
 3. Re-run `scripts/tuning-status.sh` and the CI gates.
 4. Land as one PR titled `scaffold: upgrade to vX.Y.Z`; append a
@@ -32,7 +32,7 @@ config), ask **once per PR**: "reflect this in the template too?" — and
 record the answer in the PR description in fixed form (`upstream:
 proposed` / `upstream: n/a`). If proposed, open the matching PR on the
 template repository and mark the retro-log Fix cell `[upstreamed]` — see
-`.github/skills/retro/SKILL.md`, Upstreaming. Acceptance is the template
+`.claude/skills/retro/SKILL.md`, Upstreaming. Acceptance is the template
 owner's call (merge right = judgment right); the instance PR never waits
 for it. That is how future projects inherit what this one learned.
 
@@ -70,7 +70,7 @@ trail is summarized under Lineage below.
     (session-orchestration).
   - D7 §10 ledger completeness in AGENTS.md ("hands off, voice on").
   - D8 reference-don't-paste: PII/credentials never pasted into the ledger
-    (copilot-instructions rejection list, verification skill).
+    (the always-on instructions file's rejection list, verification skill).
   - D9 existing-codebase path: characterization tests first
     (project-onboarding).
   - D10 re-registered `retro:candidate` seed: auto-comment issue-body

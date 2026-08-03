@@ -1,5 +1,5 @@
 # Work-order form for a single AI task. Mirrors the canonical body template
-# .github/skills/plan-management/templates/task-body.md — keep the two in sync
+# .claude/skills/plan-management/templates/task-body.md — keep the two in sync
 # (section headings are parsed by agents and scripts).
 name: "AI Task (work order)"
 description: >-
@@ -14,9 +14,9 @@ body:
         as the matching `exec:*` label, set the parent Epic
         (`gh issue edit <n> --set-parent <epic>`), wire dependencies
         (`--add-blocked-by`), and add `ai:ready` only once the brief meets the
-        planner quality bar (`.github/agents/planner.agent.md`).
+        planner quality bar (`.claude/agents/planner.md`).
         CLI-created tasks should use
-        `.github/skills/plan-management/scripts/new-task.sh` instead.
+        `.claude/skills/plan-management/scripts/new-task.sh` instead.
   - type: input
     id: objective
     attributes:
@@ -88,7 +88,7 @@ body:
     attributes:
       label: Routing — Surface
       description: >-
-        See .github/skills/task-routing/SKILL.md. Mirror as the exec:* label.
+        See .claude/skills/task-routing/SKILL.md. Mirror as the exec:* label.
       options:
         - "exec:cloud"
         - "exec:app"

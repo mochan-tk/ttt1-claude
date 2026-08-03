@@ -1,4 +1,4 @@
-# Deterministic verification gates (layer 1 of .github/skills/verification/SKILL.md).
+# Deterministic verification gates (layer 1 of .claude/skills/verification/SKILL.md).
 # These checks are the ceiling on agent autonomy: the cloud agent iterates on
 # their failures, and branch rulesets should require them before merge.
 name: CI
@@ -23,7 +23,7 @@ jobs:
 
       # CUSTOMIZE: replace the placeholder below with the project's real
       # gates, and keep them in sync with the "validated commands" section of
-      # .github/copilot-instructions.md. Examples:
+      # CLAUDE.md. Examples:
       #
       # - uses: actions/setup-node@v4
       #   with: { node-version: 22, cache: npm }
@@ -32,7 +32,7 @@ jobs:
       # - run: npm test
       #
       # Firmware logic tests run on the host — no hardware in CI
-      # (.github/instructions/firmware.instructions.md):
+      # (.claude/rules/firmware.md):
       # - run: pip install --upgrade platformio
       # - run: pio test -e native -d firmware
       # - run: pio run -d firmware        # build all envs as a compile gate

@@ -2,8 +2,8 @@
 
 Landing zone for **raw** project information: meeting notes, existing specs,
 domain research, exports from external tools, interview answers. Rules and
-procedure: `.github/skills/context-collection/SKILL.md`; scoped rules:
-`.github/instructions/docs.instructions.md`.
+procedure: `.claude/skills/context-collection/SKILL.md`; scoped rules:
+`.claude/rules/docs.md`.
 
 Ground rules (summary — the skill is authoritative):
 
@@ -17,4 +17,4 @@ Ground rules (summary — the skill is authoritative):
   design against `docs/agreements/` only.
 - Completeness beats tidiness; never "clean up" raw material into
   conclusions here — that is distillation
-  (`.github/skills/context-distillation/SKILL.md`).
+  (`.claude/skills/context-distillation/SKILL.md`).

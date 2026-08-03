@@ -2,7 +2,7 @@
 
 <!-- Copy to ADR-####-<slug>.md; number sequentially from ADR-0001; IDs are
      immutable. One decision per record. Change control:
-     .github/instructions/docs.instructions.md. -->
+     .claude/rules/docs.md. -->
 
 - **Status:** proposed | accepted | superseded by ADR-####
 - **Date:** YYYY-MM-DD

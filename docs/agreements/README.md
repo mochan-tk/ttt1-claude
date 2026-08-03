@@ -2,8 +2,8 @@
 
 The distilled, human-approved knowledge every agent designs against.
 Produced from `docs/context/` by
-`.github/skills/context-distillation/SKILL.md`; change control by
-`.github/instructions/docs.instructions.md` (**PR + human approval only** —
+`.claude/skills/context-distillation/SKILL.md`; change control by
+`.claude/rules/docs.md` (**PR + human approval only** —
 merge is what makes something an agreement).
 
 | File | Holds |

@@ -3,7 +3,7 @@
 # not exist.
 #
 # Scans every git-tracked *.md file for references matching
-#   (.github|docs|scripts)/<path>.(md|yml|sh|json)
+#   (.github|.claude|docs|scripts)/<path>.(md|yml|sh|json)
 # and asserts each referenced path exists in the working tree.
 #
 # Allowlist — intentional example paths that documentation cites although
@@ -21,7 +21,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-REF_PATTERN='(\.github|docs|scripts)/[A-Za-z0-9_/.-]+\.(md|yml|sh|json)'
+REF_PATTERN='(\.github|\.claude|docs|scripts)/[A-Za-z0-9_/.-]+\.(md|yml|sh|json)'
 
 ALLOW_PREFIXES=(
   "docs/context/device-pairing/"

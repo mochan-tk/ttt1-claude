@@ -5,9 +5,9 @@
 # Pairs checked (form `label:` values vs body-template `## ` headings, in
 # document order):
 #   .github/ISSUE_TEMPLATE/ai-task.yml
-#     <-> .github/skills/plan-management/templates/task-body.md
+#     <-> .claude/skills/plan-management/templates/task-body.md
 #   .github/ISSUE_TEMPLATE/epic.yml
-#     <-> .github/skills/plan-management/templates/epic-body.md
+#     <-> .claude/skills/plan-management/templates/epic-body.md
 #
 # Collapse rule: a run of consecutive form labels prefixed "Routing — "
 # (Surface, Suggested role, ...) maps to the single body heading "Routing".
@@ -118,9 +118,9 @@ check_pair() {
 }
 
 check_pair ".github/ISSUE_TEMPLATE/ai-task.yml" \
-  ".github/skills/plan-management/templates/task-body.md" || FAIL=1
+  ".claude/skills/plan-management/templates/task-body.md" || FAIL=1
 check_pair ".github/ISSUE_TEMPLATE/epic.yml" \
-  ".github/skills/plan-management/templates/epic-body.md" || FAIL=1
+  ".claude/skills/plan-management/templates/epic-body.md" || FAIL=1
 
 if [ "$FAIL" -ne 0 ]; then
   echo "check-template-sync: FAIL — template pairs out of sync (see above)." >&2

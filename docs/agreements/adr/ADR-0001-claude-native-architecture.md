@@ -48,10 +48,10 @@ Adopt two cooperating planes:
    permissions and hooks; `.mcp.json` for project MCP servers.
 
 Copilot-specific surfaces are **removed, with behavior translated, never
-files copied**: `.github/copilot-instructions.md` (content moves into
-`CLAUDE.md`), `.github/prompts/`, `.github/agents/`,
-`.github/instructions/`, `.github/workflows/copilot-setup-steps.yml`,
-`.vscode/mcp.json`. The Sync Triangle becomes the **Sync Pair**
+files copied**: the Copilot repository-instructions file (its content moves
+into `CLAUDE.md`), the prompts, agents, and instructions directories that
+lived under `.github/`, the Copilot setup-steps workflow, and the VS Code
+MCP config. The former Sync Triangle becomes the **Sync Pair**
 (`CLAUDE.md` ⇄ `ci.yml`).
 
 **Hooks-as-enforcement principle:** the scaffold's thesis — automated

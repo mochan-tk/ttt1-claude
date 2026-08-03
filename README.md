@@ -20,7 +20,7 @@ Four steps turn a fresh copy into a licensed working environment:
 
 1. **Bootstrap labels:** `scripts/setup-labels.sh` (the 11 labels the
    skills rely on).
-2. **Onboard:** run the `/onboard-project` prompt — it inventories the
+2. **Onboard:** run the `/onboard-project` command — it inventories the
    repo, asks only the gaps, verifies commands by actually running them,
    fills every `CUSTOMIZE` marker, and lands one evidence PR. Merging that
    PR (plus one shakedown delegation) is the **license merge**: unattended
@@ -45,7 +45,7 @@ step: **Getting started** below.
 | 1. Collect | Land raw information with provenance | `docs/context/` via `context-collection` skill |
 | 2. Distill & agree | Turn raw material into reviewed truth (REQ/ADR/glossary/non-goals) via PR; place each piece of knowledge in a context tier | `docs/agreements/` via `context-distillation` skill |
 | 3. Plan & orchestrate | Rolling-wave issue graph (Epics → just-in-time Task sub-issues, `blocked-by` ordering, actionable frontier); parent/child sessions execute it | `plan-management` + `session-orchestration` skills, issue templates |
-| 4. Route & execute | Each task carries one `exec:*` label + Routing block deciding surface, role, and model tier | `task-routing` skill, `.github/agents/` |
+| 4. Route & execute | Each task carries one `exec:*` label + Routing block deciding surface, role, and model tier | `task-routing` skill, `.claude/agents/` |
 | 5. Verify & learn | Layered gates (CI → security → AI review → human), evidence tables, and `retro:` PRs that improve the system itself — upstreaming what is project-agnostic | `verification` + `retro` skills, `ci.yml`, rulesets |
 
 ## The Three Merges
@@ -76,15 +76,11 @@ agents and to walls.
 
 ```
 AGENTS.md                          Operating constitution (all agents, all surfaces)
-CLAUDE.md                          Claude Code shim: @imports AGENTS.md + copilot-instructions
+CLAUDE.md                          Repo practicalities + @AGENTS.md import (always-on context)
 SCAFFOLD-CHANGELOG.md              Template lineage: adopted version, upgrade path
-.gitignore                         Hygiene: session plan.md, OS/editor cruft stay untracked
-.github/
-  CODEOWNERS                       Human review gate on docs/agreements/ + workflows/
-  copilot-instructions.md          Repo practicalities: layout, validated commands, PR mechanics
-  dependabot.yml                   Weekly version updates for pinned GitHub Actions
-  instructions/                    Path-scoped rules (docs/, firmware/, code review)
-  agents/                          Roles: orchestrator, planner, reviewer (*.agent.md)
+LICENSE                            MIT
+.gitignore                         Hygiene: session plan.md, session-scope, local settings
+.claude/
   skills/                          Procedures (SKILL.md each):
     project-onboarding/              tune this scaffold to the target project
     context-collection/              intake with provenance
@@ -96,23 +92,29 @@ SCAFFOLD-CHANGELOG.md              Template lineage: adopted version, upgrade pa
     session-orchestration/           parent/child session protocol
     verification/                    gates, evidence, CI-failure triage
     retro/                           failures -> system improvements (+ upstreaming)
-  prompts/                         Slash commands: /onboard-project /distill-context
+  commands/                        Slash commands: /onboard-project /distill-context
                                    /breakdown-epic /start-task /replan /retro
+  agents/                          Role subagents with tool fences: orchestrator, planner, reviewer
+  rules/                           Path-scoped rules (docs/, firmware/, code review)
+  settings.json                    Permissions + hooks (ownership-guard, session start)
+.mcp.json                          Project MCP servers (per-user approval on first use)
+.github/
+  CODEOWNERS                       Human review gate on docs/agreements/ + workflows/
+  dependabot.yml                   Weekly version updates for pinned GitHub Actions
   ISSUE_TEMPLATE/                  Web forms mirroring the canonical bodies
   PULL_REQUEST_TEMPLATE.md         Evidence table + deviations + checklist
   workflows/                       ci.yml (quality + scaffold-self-check jobs),
-                                   copilot-setup-steps.yml (cloud agent env),
                                    retro-hygiene.yml (monthly review issue)
-.vscode/mcp.json                   MCP servers for interactive surfaces
-docs/context/                      Phase-1 raw intake
-docs/agreements/                   Phase-2 reviewed truth (+ retro-log.md)
 scripts/check-md-links.sh          Markdown path references resolve (scaffold-self-check)
 scripts/check-template-sync.sh     Issue forms <-> body templates in sync (scaffold-self-check)
+scripts/hooks/ownership-guard.sh   PreToolUse hook: the single-writer rule, enforced
 scripts/retro-hygiene.sh           Retro candidates + always-on budget report (--create-issue)
 scripts/setup-labels.sh            Bootstrap the canonical label set
 scripts/setup-project.sh           Bootstrap the optional Projects v2 roadmap board
 scripts/setup-ruleset.sh           Bootstrap the branch ruleset — Getting started step 5 (created disabled)
 scripts/tuning-status.sh           Tuned or not? (report / --ci / --quiet)
+docs/context/                      Phase-1 raw intake
+docs/agreements/                   Phase-2 reviewed truth (+ retro-log.md)
 ```
 
 ## Conventions at a glance
@@ -127,7 +129,7 @@ scripts/tuning-status.sh           Tuned or not? (report / --ci / --quiet)
   Verification, Routing, Handoff notes.
 - **Frontier** (what may run now): open `type:task` issues labeled
   `ai:ready` whose `blocked by` issues are all closed —
-  `.github/skills/plan-management/scripts/frontier.sh`.
+  `.claude/skills/plan-management/scripts/frontier.sh`.
 - **Reporting:** record-before-report (issue comment first, session message
   second) and verify-before-done (`gh`/`git` ground truth, never memory).
   A task's timeline reads start → plan → outcome; the issue body is the
@@ -135,8 +137,8 @@ scripts/tuning-status.sh           Tuned or not? (report / --ci / --quiet)
 
 ## How context reaches an agent (tiering)
 
-Always-on files (`AGENTS.md`, `copilot-instructions.md`) stay lean and
-universal; path-scoped `.instructions.md` files load only for matching
+Always-on files (`AGENTS.md`, `CLAUDE.md`) stay lean and
+universal; path-scoped `.claude/rules/` files load only for matching
 paths; skills load on demand by description; task-specific context travels
 in the Task issue itself. The `context-distillation` skill owns tier
 placement; the `retro` skill's Budget rule keeps always-on files from
@@ -150,19 +152,17 @@ degrades every request a little.
    `scaffold not onboarded` warnings and agents are told not to trust the
    command sections.
 2. **Bootstrap labels:** `scripts/setup-labels.sh` (or `-R owner/repo`).
-3. **Onboard:** run the `/onboard-project` prompt (or hand any capable agent
-   `.github/skills/project-onboarding/SKILL.md`). It inventories the repo,
-   asks only the gaps, verifies commands by running them, fills or removes
-   every `CUSTOMIZE` block across the Sync Triangle
-   (`copilot-instructions.md` ⇄ `ci.yml` ⇄ `copilot-setup-steps.yml`), and
-   opens one evidence PR. Manual fallback: search the repo for `CUSTOMIZE`
+3. **Onboard:** run the `/onboard-project` command (or hand any capable
+   agent `.claude/skills/project-onboarding/SKILL.md`). It inventories the
+   repo, asks only the gaps, verifies commands by running them, fills or
+   removes every `CUSTOMIZE` block across the Sync Pair
+   (`CLAUDE.md` ⇄ `ci.yml`), and opens one evidence PR. Manual fallback: search the repo for `CUSTOMIZE`
    and fill by hand. Tuned = `scripts/tuning-status.sh` exits 0.
-4. **MCP:** interactive surfaces read `.vscode/mcp.json`. For the cloud
-   agent and Copilot code review, mirror the servers in *Repository
-   settings → Copilot* (secrets there must be prefixed `COPILOT_MCP_`);
-   scope each server to the minimal `tools` list. Keep the cloud agent's
-   firewall and recommended allowlist enabled — extend the allowlist
-   per-domain when a task genuinely needs it, never disable wholesale.
+4. **MCP:** Claude Code sessions read the checked-in `.mcp.json`
+   (project-scoped; each user approves it on first use). Scope each server
+   to the minimal tool set a task genuinely needs, and prefer per-project
+   additions via PR over ad-hoc local config — the ledger should show which
+   servers agents could reach.
 5. **Branch ruleset** on `main`: require a pull request; require the CI
    checks from `ci.yml`; require at least one approval from someone other
    than the author (this is what makes agent PRs human-gated); optionally
@@ -180,14 +180,14 @@ degrades every request a little.
    link makes it visible in the repository's Projects tab. Manual steps
    remain — create the Roadmap view in the project UI and group it by
    `Kind` (see
-   `.github/skills/plan-management/SKILL.md`, Roadmap scheduling). At org
+   `.claude/skills/plan-management/SKILL.md`, Roadmap scheduling). At org
    level you can additionally define issue types (Epic/Task) and a Project
    with a Blocked view; keep Project fields derived from issues.
 7. **First run:**
    - Collect sources into `docs/context/<topic>/` (`context-collection`).
    - Run `/distill-context` → agreements PR → human merges (= agreement).
    - File an Epic (form or
-     `.github/skills/plan-management/templates/epic-body.md`).
+     `.claude/skills/plan-management/templates/epic-body.md`).
    - Run `/breakdown-epic` → approve → Task issues exist, wired and routed.
    - Dispatch the frontier: `exec:cloud` → assign the issue to Copilot;
      `exec:app` → open a parent session with the **orchestrator** agent and
@@ -207,7 +207,7 @@ repository: project-agnostic retro fixes are **upstreamed** (retro skill,
 Upstreaming section), and instances **upgrade** by diffing against template
 tags and cherry-picking while keeping their tunings — procedure and version
 history in `SCAFFOLD-CHANGELOG.md`. Rule of thumb: procedures, templates,
-and gates are upgradable; the Sync Triangle content and `applyTo` globs are
+and gates are upgradable; the Sync Pair content and `paths` globs are
 project truth and stay put.
 
 ## Terminology bridge (JP ↔ EN)

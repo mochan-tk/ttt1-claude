@@ -89,5 +89,8 @@ and Routing. Read all of it before writing code.
 - Diff touches paths outside the issue's File ownership section.
 - Acceptance criteria without evidence, or verification commands not run.
 - Secrets, tokens, or credentials in code or config.
+- PII, credentials, or real user/customer data pasted into the ledger
+  (issues, PR text, commit messages) — link the access-controlled source
+  instead (reference, don't paste; verification skill).
 - Modified CI workflows, rulesets, or checks without an explicit mandate.
 - Non-English persistent artifacts (code comments, docs, commit messages).

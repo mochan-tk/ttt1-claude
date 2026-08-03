@@ -84,6 +84,15 @@ recurrence prevented.
 `deferred` is legal only when a follow-up issue exists and is linked;
 "pass (untested)" is not a result.
 
+## Reference, don't paste
+
+Evidence often involves real data; real data lives in access-controlled
+stores, and the ledger (issues, PRs, commits) carries **links, not
+values**. Pasting PII, credentials, tokens, or customer records into an
+issue or PR turns the ledger itself into a leak — and gets the PR rejected
+(copilot-instructions, rejection list). Sanitized excerpts are fine when
+the sanitization is self-evident; when in doubt, link.
+
 ## CI failure triage
 
 When a check fails, classify before touching anything:

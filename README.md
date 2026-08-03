@@ -14,6 +14,29 @@ through the `project-onboarding` skill, and kept honest afterwards by
 `scripts/tuning-status.sh` — so the same template serves any project and can
 be sharply tuned the moment a target arrives.
 
+## This is a template — after copying
+
+Four steps turn a fresh copy into a licensed working environment:
+
+1. **Bootstrap labels:** `scripts/setup-labels.sh` (the 11 labels the
+   skills rely on).
+2. **Onboard:** run the `/onboard-project` prompt — it inventories the
+   repo, asks only the gaps, verifies commands by actually running them,
+   fills every `CUSTOMIZE` marker, and lands one evidence PR. Merging that
+   PR (plus one shakedown delegation) is the **license merge**: unattended
+   delegation unlocks here, not before.
+3. **Enable the ruleset (human):** `scripts/setup-ruleset.sh` creates the
+   branch ruleset *disabled* by design; a human reviews and enables it in
+   Settings → Rules → Rulesets.
+4. **First Epic:** file an Epic, run `/breakdown-epic`, dispatch the
+   frontier, and take one task through plan comment → PR → green checks →
+   completion merge.
+
+Until step 2 completes, CI shows `scaffold not onboarded` warnings and
+`scripts/tuning-status.sh` lists what remains — an untuned copy is meant
+to be machine-visible, not discovered by accident. Full detail for every
+step: **Getting started** below.
+
 ## The lifecycle
 
 | Phase | What happens | Lives in |
@@ -185,6 +208,18 @@ tags and cherry-picking while keeping their tunings — procedure and version
 history in `SCAFFOLD-CHANGELOG.md`. Rule of thumb: procedures, templates,
 and gates are upgradable; the Sync Triangle content and `applyTo` globs are
 project truth and stay put.
+
+## Terminology bridge (JP ↔ EN)
+
+The scaffold's core concepts carry established Japanese names in the
+companion literature; one line each:
+
+| 日本語 | English (this repository) |
+|---|---|
+| 三つのマージ | the Three Merges (agreement / license / completion) |
+| 先置きテスト | test-first work orders |
+| 追跡グラフ | tracking graph |
+| 台帳の完全性 | ledger completeness |
 
 ## Origin note
 
